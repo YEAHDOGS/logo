@@ -56,6 +56,10 @@
   <h2>⚡ Quick downloads</h2>
   <div class="grid" id="quickGrid"></div>
 
+  <h2>🎯 Centered variants — 500×500</h2>
+  <p class="sub" style="margin-bottom:16px">The dog, shrunk to the center of a perfect square. Pick how much of the square it takes up — any other size or mix, build it below.</p>
+  <div class="grid" id="variantGrid"></div>
+
   <h2>📦 Brand files — the originals</h2>
   <div class="grid">
     <a class="tile sticker-tile" href="assets/sticker.webp" download="made-by-dogs-sticker.webp">
@@ -110,6 +114,9 @@
       <div class="field"><label>Logo ink</label>
         <select id="ink"><option value="black">Black</option><option value="white">White</option></select>
       </div>
+      <div class="field"><label>Format</label>
+        <select id="fmt"><option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WEBP</option></select>
+      </div>
       <div class="field"><label>Border padding <span class="rangeval" id="padVal">20%</span></label>
         <input type="range" id="pad" min="0" max="45" value="20">
       </div>
@@ -117,7 +124,7 @@
     <div class="preview-wrap">
       <canvas id="preview" width="320" height="320"></canvas>
       <div>
-        <button class="btn" id="dlCustom">⬇ Download PNG</button>
+        <button class="btn" id="dlCustom">⬇ Download</button>
         <p class="note">The logo shrinks to fit inside your padding<br>and stays dead centered. Bigger border,<br>smaller dog — always balanced.</p>
       </div>
     </div>
@@ -171,18 +178,25 @@ function renderLogo(w, h, bg, ink, padPct) {
   return c;
 }
 
-function download(canvas, name) {
+function download(canvas, name, type) {
+  type = type || 'image/png';
   canvas.toBlob(b => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(b);
     a.download = name;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-  }, 'image/png');
+  }, type, 0.92);
+}
+
+// JPEG/WEBP have no transparency: transparent renders onto white for JPEG.
+function effBg(bg, fmt) {
+  if (fmt === 'image/jpeg' && bg === 'transparent') return '#ffffff';
+  return bg;
 }
 
 // --- quick grid ---
-const SIZES = [1024, 512, 256, 128, 64, 32];
+const SIZES = [1024, 500, 256, 128, 64, 32];
 const BGS = [
   {name:'transparent', cls:'checker', label:'Transparent', ink:'black'},
   {name:'#000000', cls:'bg-black', label:'Black', ink:'white'},
@@ -206,6 +220,33 @@ function buildGrid() {
   });
 }
 
+// --- centered variants (500x500; logo shrunk to the middle) ---
+const OCCUPANCY = [70, 55, 40, 28]; // % of the square the logo takes up
+const VCOMBOS = [
+  {bg:'transparent', cls:'checker', label:'Transparent', ink:'black', fmt:'image/png', ext:'png'},
+  {bg:'#000000', cls:'bg-black', label:'Black', ink:'white', fmt:'image/png', ext:'png'},
+  {bg:'#ffffff', cls:'bg-white', label:'White', ink:'black', fmt:'image/png', ext:'png'},
+  {bg:'#ffffff', cls:'bg-white', label:'White', ink:'black', fmt:'image/jpeg', ext:'jpg'},
+  {bg:'#000000', cls:'bg-black', label:'Black', ink:'white', fmt:'image/jpeg', ext:'jpg'},
+];
+function buildVariants() {
+  const g = document.getElementById('variantGrid');
+  OCCUPANCY.forEach(occ => {
+    const pad = (100 - occ) / 2;
+    VCOMBOS.forEach(v => {
+      const t = document.createElement('div');
+      t.className = 'tile';
+      t.innerHTML = `<div class="thumb ${v.cls}"><img alt="DOGS logo centered variant"></div>
+        <div class="lbl">Logo ${occ}% · ${v.label}</div><div class="dl">⤓ 500×500 ${v.ext.toUpperCase()}</div>`;
+      const thumb = renderLogo(192, 192, effBg(v.bg, v.fmt), v.ink, pad);
+      t.querySelector('img').src = thumb.toDataURL();
+      t.onclick = () => download(renderLogo(500, 500, effBg(v.bg, v.fmt), v.ink, pad),
+        `dogs-logo-500x500-center${occ}-${v.label.toLowerCase()}.${v.ext}`, v.fmt);
+      g.appendChild(t);
+    });
+  });
+}
+
 // --- custom builder ---
 const $ = id => document.getElementById(id);
 function currentBg() {
@@ -219,7 +260,7 @@ function updatePreview() {
   $('padVal').textContent = pad + '%';
   $('customColorField').style.display = $('bg').value === 'custom' ? 'block' : 'none';
   const pv = $('preview');
-  const src = renderLogo(w, h, currentBg(), $('ink').value, pad);
+  const src = renderLogo(w, h, effBg(currentBg(), $('fmt').value), $('ink').value, pad);
   // scale preview to fit 320px box
   const s = Math.min(320 / w, 320 / h, 1);
   pv.width = Math.max(1, Math.round(w * s));
@@ -229,15 +270,17 @@ function updatePreview() {
   px.drawImage(src, 0, 0, pv.width, pv.height);
   pv._full = src;
 }
-['cw','ch','bg','bgCustom','ink','pad'].forEach(id => $(id).addEventListener('input', updatePreview));
+['cw','ch','bg','bgCustom','ink','pad','fmt'].forEach(id => $(id).addEventListener('input', updatePreview));
 $('dlCustom').onclick = () => {
   const w = Math.max(16, Math.min(4096, +$('cw').value || 1024));
   const h = Math.max(16, Math.min(4096, +$('ch').value || 1024));
-  download($('preview')._full || renderLogo(w, h, currentBg(), $('ink').value, +$('pad').value),
-    `dogs-logo-${w}x${h}.png`);
+  const fmt = $('fmt').value;
+  const ext = fmt === 'image/jpeg' ? 'jpg' : fmt === 'image/webp' ? 'webp' : 'png';
+  download($('preview')._full || renderLogo(w, h, effBg(currentBg(), fmt), $('ink').value, +$('pad').value),
+    `dogs-logo-${w}x${h}.${ext}`, fmt);
 };
 
-loadLogo().then(() => { buildGrid(); updatePreview(); });
+loadLogo().then(() => { buildGrid(); buildVariants(); updatePreview(); });
 </script>
 </body>
 </html>
