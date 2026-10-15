@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOGS Logo — Download Hub</title>
+<meta name="description" content="Download the DOGS logo in any size, background, and dimension. One click.">
+<style>
+  :root { --ink:#0d0d12; --paper:#f4f1ea; --accent:#e8a13c; --red:#e63946; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--ink); color:var(--paper); font-family:'Arial Black',Arial,sans-serif; padding:24px 16px 80px; }
+  .wrap { max-width:860px; margin:0 auto; }
+  .kicker { font-family:monospace; font-size:11px; letter-spacing:3px; color:var(--accent); margin-bottom:8px; }
+  h1 { font-size:clamp(2rem,8vw,3.2rem); text-transform:uppercase; margin-bottom:6px; }
+  h1 span { color:var(--accent); }
+  .sub { font-family:Georgia,serif; font-weight:normal; color:#b9b3a4; font-size:15px; margin-bottom:28px; line-height:1.5; }
+  h2 { font-size:1.1rem; text-transform:uppercase; letter-spacing:1px; margin:34px 0 14px; color:var(--accent); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+  .tile { background:#17171f; border:2px solid #2a2a35; border-radius:10px; padding:14px 10px 10px; cursor:pointer; text-align:center; transition:transform .12s, border-color .12s; }
+  .tile:hover { transform:translateY(-3px); border-color:var(--accent); }
+  .tile:active { transform:translateY(0); }
+  .tile .thumb { height:96px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; border-radius:6px; overflow:hidden; }
+  .tile .thumb img { max-width:82%; max-height:82%; }
+  .tile .lbl { font-family:monospace; font-size:11px; color:#cfc9b8; }
+  .tile .dl { font-family:monospace; font-size:10px; color:var(--accent); margin-top:4px; letter-spacing:1px; }
+  .checker { background:repeating-conic-gradient(#3a3a44 0% 25%, #2b2b33 0% 50%) 0 0/18px 18px; }
+  .bg-black { background:#000; } .bg-white { background:#fff; } .bg-navy { background:#1a1a2e; } .bg-red { background:var(--red); }
+  /* custom builder */
+  .builder { background:#17171f; border:2px solid #2a2a35; border-radius:12px; padding:20px; }
+  .controls { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+  .field label { display:block; font-family:monospace; font-size:10px; letter-spacing:2px; color:#8f8875; margin-bottom:6px; text-transform:uppercase; }
+  .field input[type=number], .field input[type=color], .field select { width:100%; padding:10px; font-size:15px; border-radius:8px; border:1px solid #3a3a48; background:#0d0d12; color:var(--paper); font-family:monospace; }
+  .field input[type=color] { height:44px; padding:4px; cursor:pointer; }
+  .field input[type=range] { width:100%; accent-color:var(--accent); }
+  .rangeval { font-family:monospace; font-size:12px; color:var(--accent); }
+  .preview-wrap { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+  #preview { border:2px dashed #3a3a48; border-radius:8px; max-width:100%; }
+  .btn { display:inline-block; background:var(--accent); color:#0d0d12; font-family:'Arial Black',Arial,sans-serif; font-size:1rem; text-transform:uppercase; letter-spacing:1px; padding:14px 34px; border:none; border-radius:10px; cursor:pointer; margin-top:6px; }
+  .btn:hover { filter:brightness(1.1); }
+  .btn:active { transform:scale(.97); }
+  .note { font-family:monospace; font-size:11px; color:#8f8875; margin-top:12px; line-height:1.6; }
+  .grid a.tile { display:block; text-decoration:none; color:inherit; }
+  .tile .thumb.light { background:#f4f1ea; }
+  .tile.sticker-tile { border-color:var(--accent); }
+  .badge { margin-top:44px; text-align:center; }
+  .badge img { width:170px; }
+  @media (max-width:560px){ .controls{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">DOGS · Brand Assets</div>
+  <h1>Grab the <span>logo</span></h1>
+  <p class="sub">Every size, every background. Click a tile to download instantly — or build your own below.</p>
+
+  <h2>⚡ Quick downloads</h2>
+  <div class="grid" id="quickGrid"></div>
+
+  <h2>📦 Brand files — the originals</h2>
+  <div class="grid">
+    <a class="tile sticker-tile" href="assets/sticker.webp" download="made-by-dogs-sticker.webp">
+      <div class="thumb light"><img src="assets/sticker.webp" alt="THIS PRODUCT WAS MADE BY DOGS sticker"></div>
+      <div class="lbl">Made by DOGS sticker</div><div class="dl">⤓ WEBP · 360×119</div>
+    </a>
+    <a class="tile" href="assets/dogs-logo.svg" download="dogs-logo.svg">
+      <div class="thumb light"><img src="assets/dogs-logo.svg" alt="DOGS logo"></div>
+      <div class="lbl">Logo master</div><div class="dl">⤓ SVG · vector</div>
+    </a>
+    <a class="tile" href="assets/icon-512.png" download="dogs-icon-512.png">
+      <div class="thumb checker"><img src="assets/icon-512.png" alt="DOGS app icon 512"></div>
+      <div class="lbl">App icon</div><div class="dl">⤓ PNG · 512×512</div>
+    </a>
+    <a class="tile" href="assets/icon-192.png" download="dogs-icon-192.png">
+      <div class="thumb checker"><img src="assets/icon-192.png" alt="DOGS app icon 192"></div>
+      <div class="lbl">App icon</div><div class="dl">⤓ PNG · 192×192</div>
+    </a>
+    <a class="tile" href="assets/apple-touch-icon.png" download="dogs-apple-touch-icon.png">
+      <div class="thumb checker"><img src="assets/apple-touch-icon.png" alt="DOGS apple touch icon"></div>
+      <div class="lbl">Apple touch icon</div><div class="dl">⤓ PNG · 180×180</div>
+    </a>
+    <a class="tile" href="assets/favicon.svg" download="dogs-favicon.svg">
+      <div class="thumb light"><img src="assets/favicon.svg" alt="DOGS favicon"></div>
+      <div class="lbl">Favicon</div><div class="dl">⤓ SVG · vector</div>
+    </a>
+    <a class="tile" href="assets/favicon-32x32.png" download="dogs-favicon-32.png">
+      <div class="thumb checker"><img src="assets/favicon-32x32.png" alt="DOGS favicon 32"></div>
+      <div class="lbl">Favicon</div><div class="dl">⤓ PNG · 32×32</div>
+    </a>
+    <a class="tile" href="assets/favicon-16x16.png" download="dogs-favicon-16.png">
+      <div class="thumb checker"><img src="assets/favicon-16x16.png" alt="DOGS favicon 16"></div>
+      <div class="lbl">Favicon</div><div class="dl">⤓ PNG · 16×16</div>
+    </a>
+  </div>
+
+  <h2>🛠 Custom builder</h2>
+  <div class="builder">
+    <div class="controls">
+      <div class="field"><label>Width (px)</label><input type="number" id="cw" value="1024" min="16" max="4096"></div>
+      <div class="field"><label>Height (px)</label><input type="number" id="ch" value="1024" min="16" max="4096"></div>
+      <div class="field"><label>Background</label>
+        <select id="bg">
+          <option value="transparent">Transparent</option>
+          <option value="#000000">Black</option>
+          <option value="#ffffff">White</option>
+          <option value="#1a1a2e">Navy</option>
+          <option value="custom">Custom…</option>
+        </select>
+      </div>
+      <div class="field" id="customColorField" style="display:none"><label>Custom color</label><input type="color" id="bgCustom" value="#e8a13c"></div>
+      <div class="field"><label>Logo ink</label>
+        <select id="ink"><option value="black">Black</option><option value="white">White</option></select>
+      </div>
+      <div class="field"><label>Border padding <span class="rangeval" id="padVal">20%</span></label>
+        <input type="range" id="pad" min="0" max="45" value="20">
+      </div>
+    </div>
+    <div class="preview-wrap">
+      <canvas id="preview" width="320" height="320"></canvas>
+      <div>
+        <button class="btn" id="dlCustom">⬇ Download PNG</button>
+        <p class="note">The logo shrinks to fit inside your padding<br>and stays dead centered. Bigger border,<br>smaller dog — always balanced.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="badge"><a href="https://wearedogs.net"><img src="assets/badge.webp" alt="Made by DOGS"></a></div>
+</div>
+
+<script>
+const LOGO_URL = 'assets/dogs-logo.svg';
+let logoImg = null;
+
+function loadLogo() {
+  return fetch(LOGO_URL).then(r => r.text()).then(svg => {
+    const blob = new Blob([svg], {type:'image/svg+xml'});
+    const url = URL.createObjectURL(blob);
+    return new Promise(res => {
+      const img = new Image();
+      img.onload = () => { logoImg = img; res(); };
+      img.src = url;
+    });
+  });
+}
+
+// Render logo centered on canvas, shrunk to fit inside padding. Returns canvas.
+// White ink is recolored on an ISOLATED offscreen canvas first (source-in there
+// touches only the logo's alpha). Recoloring after the background is painted
+// whites out the whole canvas — that was the old bug.
+function renderLogo(w, h, bg, ink, padPct) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const x = c.getContext('2d');
+  if (bg !== 'transparent') { x.fillStyle = bg; x.fillRect(0, 0, w, h); }
+  const pad = Math.min(w, h) * (padPct / 100);
+  const availW = w - pad * 2, availH = h - pad * 2;
+  const s = Math.min(availW / logoImg.width, availH / logoImg.height);
+  const dw = logoImg.width * s, dh = logoImg.height * s;
+  const dx = (w - dw) / 2, dy = (h - dh) / 2;
+  let src = logoImg;
+  if (ink === 'white') {
+    const off = document.createElement('canvas');
+    off.width = Math.max(1, Math.round(dw)); off.height = Math.max(1, Math.round(dh));
+    const ox = off.getContext('2d');
+    ox.drawImage(logoImg, 0, 0, off.width, off.height);
+    ox.globalCompositeOperation = 'source-in';
+    ox.fillStyle = '#fff';
+    ox.fillRect(0, 0, off.width, off.height);
+    src = off;
+  }
+  x.drawImage(src, dx, dy, dw, dh);
+  return c;
+}
+
+function download(canvas, name) {
+  canvas.toBlob(b => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
+}
+
+// --- quick grid ---
+const SIZES = [1024, 512, 256, 128, 64, 32];
+const BGS = [
+  {name:'transparent', cls:'checker', label:'Transparent', ink:'black'},
+  {name:'#000000', cls:'bg-black', label:'Black', ink:'white'},
+  {name:'#ffffff', cls:'bg-white', label:'White', ink:'black'},
+  {name:'#1a1a2e', cls:'bg-navy', label:'Navy', ink:'white'},
+];
+function buildGrid() {
+  const g = document.getElementById('quickGrid');
+  SIZES.forEach(size => {
+    BGS.forEach(bg => {
+      const t = document.createElement('div');
+      t.className = 'tile';
+      t.innerHTML = `<div class="thumb ${bg.cls}"><img alt="DOGS logo"></div>
+        <div class="lbl">${size}×${size} · ${bg.label}</div><div class="dl">⤓ DOWNLOAD</div>`;
+      const thumbCanvas = renderLogo(192, 192, bg.name, bg.ink, 18);
+      t.querySelector('img').src = thumbCanvas.toDataURL();
+      t.onclick = () => download(renderLogo(size, size, bg.name, bg.ink, 18),
+        `dogs-logo-${size}x${size}-${bg.label.toLowerCase()}.png`);
+      g.appendChild(t);
+    });
+  });
+}
+
+// --- custom builder ---
+const $ = id => document.getElementById(id);
+function currentBg() {
+  const v = $('bg').value;
+  return v === 'custom' ? $('bgCustom').value : v;
+}
+function updatePreview() {
+  const w = Math.max(16, Math.min(4096, +$('cw').value || 1024));
+  const h = Math.max(16, Math.min(4096, +$('ch').value || 1024));
+  const pad = +$('pad').value;
+  $('padVal').textContent = pad + '%';
+  $('customColorField').style.display = $('bg').value === 'custom' ? 'block' : 'none';
+  const pv = $('preview');
+  const src = renderLogo(w, h, currentBg(), $('ink').value, pad);
+  // scale preview to fit 320px box
+  const s = Math.min(320 / w, 320 / h, 1);
+  pv.width = Math.max(1, Math.round(w * s));
+  pv.height = Math.max(1, Math.round(h * s));
+  const px = pv.getContext('2d');
+  px.clearRect(0, 0, pv.width, pv.height);
+  px.drawImage(src, 0, 0, pv.width, pv.height);
+  pv._full = src;
+}
+['cw','ch','bg','bgCustom','ink','pad'].forEach(id => $(id).addEventListener('input', updatePreview));
+$('dlCustom').onclick = () => {
+  const w = Math.max(16, Math.min(4096, +$('cw').value || 1024));
+  const h = Math.max(16, Math.min(4096, +$('ch').value || 1024));
+  download($('preview')._full || renderLogo(w, h, currentBg(), $('ink').value, +$('pad').value),
+    `dogs-logo-${w}x${h}.png`);
+};
+
+loadLogo().then(() => { buildGrid(); updatePreview(); });
+</script>
+</body>
+</html>
