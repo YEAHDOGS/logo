@@ -165,13 +165,18 @@ function renderLogo(w, h, bg, ink, padPct) {
   const dx = (w - dw) / 2, dy = (h - dh) / 2;
   let src = logoImg;
   if (ink === 'white') {
+    // Invert per-pixel (black <-> white): the mark's line work survives,
+    // so on dark backgrounds it reads as white line art — not a flat blob.
     const off = document.createElement('canvas');
     off.width = Math.max(1, Math.round(dw)); off.height = Math.max(1, Math.round(dh));
-    const ox = off.getContext('2d');
+    const ox = off.getContext('2d', { willReadFrequently: true });
     ox.drawImage(logoImg, 0, 0, off.width, off.height);
-    ox.globalCompositeOperation = 'source-in';
-    ox.fillStyle = '#fff';
-    ox.fillRect(0, 0, off.width, off.height);
+    const img = ox.getImageData(0, 0, off.width, off.height);
+    const px = img.data;
+    for (let i = 0; i < px.length; i += 4) {
+      if (px[i + 3] > 0) { px[i] = 255 - px[i]; px[i + 1] = 255 - px[i + 1]; px[i + 2] = 255 - px[i + 2]; }
+    }
+    ox.putImageData(img, 0, 0);
     src = off;
   }
   x.drawImage(src, dx, dy, dw, dh);
